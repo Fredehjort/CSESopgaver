@@ -1,0 +1,32 @@
+import sys
+ 
+def a():
+    try:
+        line1 = sys.stdin.readline()
+        if not line1:
+            return
+        n, x = map(int, line1.split())
+        line2 = sys.stdin.readline()
+        if not line2:
+            return
+        values = list(map(int, line2.split()))
+    except (IOError, ValueError):
+        return
+    arr_with_indices = []
+    for i in range(n):
+        arr_with_indices.append((values[i], i + 1))
+    arr_with_indices.sort()
+    left = 0
+    right = n - 1
+    while left < right:
+        current_sum = arr_with_indices[left][0] + arr_with_indices[right][0]
+        if current_sum == x:
+            print(arr_with_indices[left][1], arr_with_indices[right][1])
+            return
+        elif current_sum < x:
+            left += 1
+        else:
+            right -= 1
+    print("IMPOSSIBLE")
+if __name__ == "__main__":
+    a()
